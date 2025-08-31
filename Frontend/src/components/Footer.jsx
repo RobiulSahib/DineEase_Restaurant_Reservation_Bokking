@@ -8,12 +8,12 @@ const Footer = () => {
           <div className="left">Robiul</div>
           <div className="right">
             <p>Gulshan-1 ,Dhaka</p>
-            <p>Open: 02:00 PM - 12:00 AM</p>
+            <p>Open: 12:00 PM - 11:00 PM</p>
           </div>
         </div>
         <div className="banner">
           <div className="left">
-            <p>Developed By Robiul Sahib</p>
+            <p>Developed By Robiul Hassan Sahib</p>
           </div>
           <div className="right">
             <p>All Rights Reserved By Robiul Sahib.</p>

@@ -1,26 +1,97 @@
-// // frontend/src/pages/Dashboard.jsx
+// // import React from "react";
+// // import { useNavigate, Link } from "react-router-dom";
+// // import { useAppContext } from "../context/AppContext";
+// // import axios from "axios";
+// // import toast from "react-hot-toast";
 
-// import React, { useEffect, useState } from "react";
+// // const Dashboard = () => {
+// //   const navigate = useNavigate();
+// //   const { adminLogout, reservations, fetchReservations } = useAppContext();
+
+// //   const handleDelete = async (id) => {
+// //     try {
+// //       const { data } = await axios.delete(
+// //         `http://localhost:4000/api/v1/reservation/delete/${id}`,
+// //         { withCredentials: true }
+// //       );
+// //       toast.success(data.message);
+// //       fetchReservations();
+// //     } catch (error) {
+// //       toast.error(error.response.data.message);
+// //     }
+// //   };
+
+// //   const handleLogout = () => {
+// //     adminLogout();
+// //     navigate("/login");
+// //   };
+
+// //   return (
+// //     <section className="dashboard page">
+// //       <div className="container">
+// //         <div className="banner" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
+// //           <h1>All Reservations</h1>
+// //           <div>
+// //             <Link to="/feedback" style={{ marginRight: '1.5rem', textDecoration: 'underline', color: '#333' }}>
+// //               View Feedback
+// //             </Link>
+// //             <button className="logoutBtn" onClick={handleLogout}>Logout</button>
+// //           </div>
+// //         </div>
+
+// //         {/* --- THIS IS THE MISSING TABLE CODE --- */}
+// //         {reservations && reservations.length > 0 ? (
+// //           <table>
+// //             <thead>
+// //               <tr>
+// //                 <th>Name</th>
+// //                 <th>Email</th>
+// //                 <th>Phone</th>
+// //                 <th>Date</th>
+// //                 <th>Time</th>
+// //                 <th>Duration</th>
+// //                 <th>Actions</th>
+// //               </tr>
+// //             </thead>
+// //             <tbody>
+// //               {reservations.map((res) => (
+// //                 <tr key={res._id}>
+// //                   <td>{`${res.firstName} ${res.lastName}`}</td>
+// //                   <td>{res.email}</td>
+// //                   <td>{res.phone}</td>
+// //                   <td>{res.date}</td>
+// //                   <td>{res.time}</td>
+// //                   <td>{`${res.duration} hr(s)`}</td>
+// //                   <td>
+// //                     <Link to={`/reservation/edit/${res._id}`} className="editBtn">Edit</Link>
+// //                     <button onClick={() => handleDelete(res._id)}>Delete</button>
+// //                   </td>
+// //                 </tr>
+// //               ))}
+// //             </tbody>
+// //           </table>
+// //         ) : (
+// //           <p>No reservations found.</p>
+// //         )}
+// //         {/* --- END OF MISSING TABLE CODE --- */}
+
+// //       </div>
+// //     </section>
+// //   );
+// // };
+
+// // export default Dashboard;
+
+
+// import React from "react";
+// import { useNavigate, Link } from "react-router-dom";
+// import { useAppContext } from "../context/AppContext";
 // import axios from "axios";
 // import toast from "react-hot-toast";
 
 // const Dashboard = () => {
-//   const [reservations, setReservations] = useState([]);
-
-//   useEffect(() => {
-//     const fetchReservations = async () => {
-//       try {
-//         const { data } = await axios.get(
-//           "http://localhost:4000/api/v1/reservation/getall",
-//           { withCredentials: true }
-//         );
-//         setReservations(data.reservations);
-//       } catch (error) {
-//         toast.error(error.response.data.message);
-//       }
-//     };
-//     fetchReservations();
-//   }, []);
+//   const navigate = useNavigate();
+//   const { adminLogout, reservations, fetchReservations } = useAppContext();
 
 //   const handleDelete = async (id) => {
 //     try {
@@ -29,18 +100,34 @@
 //         { withCredentials: true }
 //       );
 //       toast.success(data.message);
-//       // Remove the deleted reservation from the state
-//       setReservations(reservations.filter(res => res._id !== id));
+//       fetchReservations();
 //     } catch (error) {
-//        toast.error(error.response.data.message);
+//       toast.error(error.response.data.message);
 //     }
+//   };
+
+//   const handleLogout = () => {
+//     adminLogout();
+//     navigate("/login");
 //   };
 
 //   return (
 //     <section className="dashboard page">
 //       <div className="container">
-//         <h1>All Reservations</h1>
-//         {reservations.length > 0 ? (
+//         <div className="banner" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
+//           <h1>All Reservations</h1>
+//           <div>
+//             <Link to="/feedback" style={{ marginRight: '1.5rem', textDecoration: 'underline', color: '#333' }}>
+//               View Feedback
+//             </Link>
+//             <Link to="/calendar" style={{ marginRight: '1.5rem', textDecoration: 'underline', color: '#333' }}>
+//               Calendar View
+//             </Link>
+//             <button className="logoutBtn" onClick={handleLogout}>Logout</button>
+//           </div>
+//         </div>
+
+//         {reservations && reservations.length > 0 ? (
 //           <table>
 //             <thead>
 //               <tr>
@@ -49,7 +136,8 @@
 //                 <th>Phone</th>
 //                 <th>Date</th>
 //                 <th>Time</th>
-//                 <th>Action</th>
+//                 <th>Duration</th>
+//                 <th>Actions</th>
 //               </tr>
 //             </thead>
 //             <tbody>
@@ -60,7 +148,11 @@
 //                   <td>{res.phone}</td>
 //                   <td>{res.date}</td>
 //                   <td>{res.time}</td>
-//                   <td><button onClick={() => handleDelete(res._id)}>Delete</button></td>
+//                   <td>{`${res.duration} hr(s)`}</td>
+//                   <td>
+//                     <Link to={`/reservation/edit/${res._id}`} className="editBtn">Edit</Link>
+//                     <button onClick={() => handleDelete(res._id)}>Delete</button>
+//                   </td>
 //                 </tr>
 //               ))}
 //             </tbody>
@@ -76,31 +168,15 @@
 // export default Dashboard;
 
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../context/AppContext"; // 1. IMPORT THE CONTEXT HOOK
 
 const Dashboard = () => {
-  const [reservations, setReservations] = useState([]);
   const navigate = useNavigate();
-  const { adminLogout } = useAppContext(); // 2. GET THE adminLogout FUNCTION
-
-  useEffect(() => {
-    const fetchReservations = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:4000/api/v1/reservation/getall",
-          { withCredentials: true }
-        );
-        setReservations(data.reservations);
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    };
-    fetchReservations();
-  }, []);
+  const { adminLogout, reservations, fetchReservations } = useAppContext();
 
   const handleDelete = async (id) => {
     try {
@@ -109,29 +185,34 @@ const Dashboard = () => {
         { withCredentials: true }
       );
       toast.success(data.message);
-      setReservations(reservations.filter((res) => res._id !== id));
+      fetchReservations();
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
 
-  // 3. CREATE THE LOGOUT HANDLER
   const handleLogout = () => {
-    adminLogout(); // Call the function from context
-    navigate("/login"); // Redirect to login page
+    adminLogout();
+    navigate("/login");
   };
 
   return (
     <section className="dashboard page">
       <div className="container">
-        {/* 4. ADD A BANNER FOR THE TITLE AND LOGOUT BUTTON */}
-        <div className="banner">
+        <div className="banner" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <h1>All Reservations</h1>
-          <button className="logoutBtn" onClick={handleLogout}>
-            Logout
-          </button>
+          <div>
+            <Link to="/feedback" style={{ marginRight: '1.5rem', textDecoration: 'underline', color: '#333' }}>
+              View Feedback
+            </Link>
+            <Link to="/calendar" style={{ marginRight: '1.5rem', textDecoration: 'underline', color: '#333' }}>
+              Calendar View
+            </Link>
+            <button className="logoutBtn" onClick={handleLogout}>Logout</button>
+          </div>
         </div>
-        {reservations.length > 0 ? (
+
+        {reservations && reservations.length > 0 ? (
           <table>
             <thead>
               <tr>
@@ -140,7 +221,8 @@ const Dashboard = () => {
                 <th>Phone</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Action</th>
+                <th>Duration</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -151,7 +233,9 @@ const Dashboard = () => {
                   <td>{res.phone}</td>
                   <td>{res.date}</td>
                   <td>{res.time}</td>
+                  <td>{`${res.duration} hr(s)`}</td>
                   <td>
+                    <Link to={`/reservation/edit/${res._id}`} className="editBtn">Edit</Link>
                     <button onClick={() => handleDelete(res._id)}>Delete</button>
                   </td>
                 </tr>

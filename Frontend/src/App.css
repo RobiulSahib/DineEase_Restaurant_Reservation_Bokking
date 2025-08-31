@@ -1248,3 +1248,19 @@ footer .container .banner .right {
   font-size: 1.2rem;
   color: #888;
 }
+
+/* --- START: Stacking Context Fix --- */
+
+/* Give all main sections a defined position and a lower z-index */
+.heroSection, .about, .qualities, .menu, .who_are_we, .team, .reservation, .notFound, .dashboard, .login {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure the toaster has the highest z-index but is ignored by the mouse */
+#_rht_toaster {
+  pointer-events: none !important;
+  z-index: 9999 !important;
+}
+
+/* --- END: Stacking Context Fix --- */

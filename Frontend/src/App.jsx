@@ -1,50 +1,36 @@
-// import React from 'react'
-// import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-// import { Toaster } from 'react-hot-toast';
-// import Home from './Pages/Home/Home';
-// import NotFound from './Pages/NotFound/NotFound';
-// import Success from './Pages/Success/Success';
-// import './App.css'
-// const App = () => {
-//   return (
-//     <>
-//       <Router>
-//         <Routes>
-//           <Route path='/' element={<Home/>}/>
-//           <Route path='/success' element={<Success/>}/>
-//           <Route path='*' element={<NotFound/>}/>
-//         </Routes>
-//         <Toaster/>
-//       </Router>
-//     </>
-//   )
-// }
 
-// export default App
-
-
-
-// frontend/src/App.jsx
 
 // import React from "react";
+// // --- THIS IS THE MISSING LINE ---
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// // ---------------------------------
 // import { Toaster } from "react-hot-toast";
 // import Home from "./Pages/Home/Home";
 // import NotFound from "./Pages/NotFound/NotFound";
 // import Success from "./Pages/Success/Success";
-// import AdminLogin from "./pages/AdminLogin"; // 1. Import AdminLogin
-// import Dashboard from "./pages/Dashboard";   // 2. Import Dashboard
+// import AdminLogin from "./pages/AdminLogin";
+// import Dashboard from "./pages/Dashboard";
+// import EditReservation from "./pages/EditReservation";
+// import FeedbackList from "./pages/FeedbackList";
 // import "./App.css";
+// import ProtectedRoute from "./components/ProtectedRoute";
 
 // const App = () => {
 //   return (
 //     <>
 //       <Router>
 //         <Routes>
+//           {/* --- PUBLIC ROUTES --- */}
 //           <Route path="/" element={<Home />} />
 //           <Route path="/success" element={<Success />} />
-//           <Route path="/login" element={<AdminLogin />} />     {/* 3. Add Login Route */}
-//           <Route path="/dashboard" element={<Dashboard />} /> {/* 4. Add Dashboard Route */}
+//           <Route path="/login" element={<AdminLogin />} />
+          
+//           {/* --- PROTECTED ADMIN ROUTES --- */}
+//           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+//           <Route path="/reservation/edit/:id" element={<ProtectedRoute><EditReservation /></ProtectedRoute>} />
+//           <Route path="/feedback" element={<ProtectedRoute><FeedbackList /></ProtectedRoute>} />
+          
+//           {/* --- FALLBACK ROUTE --- */}
 //           <Route path="*" element={<NotFound />} />
 //         </Routes>
 //         <Toaster />
@@ -65,28 +51,29 @@ import NotFound from "./Pages/NotFound/NotFound";
 import Success from "./Pages/Success/Success";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/Dashboard";
+import EditReservation from "./pages/EditReservation";
+import FeedbackList from "./pages/FeedbackList";
+import CalendarView from "./pages/CalendarView";
 import "./App.css";
-import ProtectedRoute from "./components/ProtectedRoute"; // 1. IMPORT THE NEW COMPONENT
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
+          {/* --- PUBLIC ROUTES --- */}
           <Route path="/" element={<Home />} />
           <Route path="/success" element={<Success />} />
           <Route path="/login" element={<AdminLogin />} />
           
-          {/* 2. UPDATE THE DASHBOARD ROUTE */}
-          <Route 
-            path="/dashboard" 
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } 
-          />
+          {/* --- PROTECTED ADMIN ROUTES --- */}
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/reservation/edit/:id" element={<ProtectedRoute><EditReservation /></ProtectedRoute>} />
+          <Route path="/feedback" element={<ProtectedRoute><FeedbackList /></ProtectedRoute>} />
+          <Route path="/calendar" element={<ProtectedRoute><CalendarView /></ProtectedRoute>} />
           
+          {/* --- FALLBACK ROUTE --- */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster />
